@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Create Your Profile</h2>
+        <form id="profileForm">
+            <input type="text" id="name" placeholder="Enter your name" required>
+            <input type="text" id="bio" placeholder="Enter a short bio" required>
+            <input type="file" id="profilePic" accept="image/*">
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("profileForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let name = document.getElementById("name").value;
+            let bio = document.getElementById("bio").value;
+            let pic = document.getElementById("profilePic").files[0];
+
+            localStorage.setItem("profileName", name);
+            localStorage.setItem("profileBio", bio);
+
+            if (pic) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    localStorage.setItem("profilePic", event.target.result);
+                    window.location.href = "home.html";
+                };
+                reader.readAsDataURL(pic);
+            } else {
+                window.location.href = "home.html";
+            }
+        });
+    </script>
+</body>
+</html>

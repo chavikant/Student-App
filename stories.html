@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Stories</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Community Stories</h1>
+        
+        <div class="stories-list">
+            <!-- Static Random Stories -->
+            <div class="story">
+                <img src="profile pics\1.jpg" alt="user 1">
+                <h3>John</h3>
+                <p>"Technology is shaping the future of education..."</p>
+            </div>
+            <div class="story">
+                <img src="profile pics\2.jpg" alt="user 2">
+                <h3>Jane Smith</h3>
+                <p>"AI is transforming how we interact with data..."</p>
+            </div>
+            <div class="story">
+                <img src="profile pics\3.jpg" alt="user 3">
+                <h3>Riya</h3>
+                <p>"Developing apps has never been more exciting!"</p>
+            </div>
+
+            <!-- User's Submitted Story (Dynamic) -->
+            <div class="story" id="userStorySection" style="display: none;">
+                <img id="savedUserPic" src="default-profile.png" alt="Your Profile">
+                <h3 id="savedUserName">You</h3>
+                <p id="savedUserStory"></p>
+            </div>
+        </div>
+
+        <a href="index.html" class="btn-secondary">Back to Home</a>
+    </div>
+
+    <script>
+        // Load user's submitted story
+        document.addEventListener("DOMContentLoaded", function () {
+            let userStory = localStorage.getItem("userStory");
+            let userName = localStorage.getItem("userName") || "You";
+            let userPic = localStorage.getItem("profilePic") || "default-profile.png";
+
+            if (userStory) {
+                document.getElementById("savedUserName").innerText = userName;
+                document.getElementById("savedUserStory").innerText = userStory;
+                document.getElementById("savedUserPic").src = userPic;
+                document.getElementById("userStorySection").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

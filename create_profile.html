@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .profile-pic-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 10px auto;
+            border: 2px solid #7f7fd5;
+        }
+
+        .btn {
+            background: #7f7fd5;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #5d5db7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create Your Profile</h2>
+        <img id="profilePreview" src="default-profile.png" class="profile-pic-preview" alt="Profile Picture">
+        <input type="file" id="profilePicInput" accept="image/*">
+        <input type="text" id="userName" placeholder="Enter Your Name">
+        <button class="btn" onclick="saveProfile()">Create Account</button>
+    </div>
+
+    <script>
+        document.getElementById('profilePicInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    document.getElementById('profilePreview').src = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveProfile() {
+            const name = document.getElementById("userName").value;
+            const profilePic = document.getElementById("profilePreview").src;
+
+            if (name.trim() === "") {
+                alert("Please enter your name.");
+                return;
+            }
+
+            localStorage.setItem("userName", name);
+            localStorage.setItem("profilePic", profilePic);
+
+            alert("Profile created successfully!");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
